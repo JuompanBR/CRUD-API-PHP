@@ -2,7 +2,6 @@
 
 namespace App\Classes;
 use App\Classes\MySqlDb;
-use App\Configs\Messages;
 
 /**
  * Database connection class and basic CRUD operations

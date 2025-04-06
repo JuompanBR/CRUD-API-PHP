@@ -59,6 +59,7 @@ class MySqlDb implements DbTypeInterface
      * 
      * @param string $table The table to get the element
      * @param int $limit The limit for the get query
+     * 
      * @return array The result of the get query
      */
     public function get(string $table, int $limit): array
@@ -77,6 +78,15 @@ class MySqlDb implements DbTypeInterface
 
         return $result;
     }
+
+    /**
+     * Add an element to the database
+     * 
+     * @param string $table The table to get the element
+     * @param array $data The data to add to the database
+     * 
+     * @return string The state of the add query
+     */
     public function add(string $table, array $data): string
     {
         // Prevent sql injection attacks by using prepared statements
@@ -87,6 +97,65 @@ class MySqlDb implements DbTypeInterface
 
         // Execute the query
         $stmt->execute(array_values($data));
+
+        // Check if the query was successful
+        if ($stmt->rowCount() > 0) {
+
+            return Messages::getMessage('success');
+        } else {
+
+            return Messages::getMessage('error');
+        }
+    }
+
+    /**
+     * Update an element to the database
+     * 
+     * @param string $table The table to get the element
+     * @param array $data The data to update to the database
+     * @param string $where The update selection criteria
+     * 
+     * @return string The state of the update query
+     */
+    public function update(string $table, array $data, string $where): string
+    {
+        // Prevent sql injection attacks by using prepared statements
+        $query = "UPDATE $table SET " . implode(", ", array_map(fn($key) => "$key = ?", array_keys($data))) . " WHERE $where";
+
+        // Prepare the statement
+        $stmt = $this->connection->prepare($query);
+
+        // Execute the query
+        $stmt->execute(array_values($data));
+
+        // Check if the query was successful
+        if ($stmt->rowCount() > 0) {
+
+            return Messages::getMessage('success');
+        } else {
+
+            return Messages::getMessage('error');
+        }
+    }
+
+    /**
+     * Update an element to the database
+     * 
+     * @param string $table The table to get the element
+     * @param string $where The delete selection criteria
+     * 
+     * @return string The state of the update query
+     */
+    public function delete(string $table, string $where): string
+    {
+        // Prevent sql injection attacks by using prepared statements
+        $query = "DELETE FROM $table WHERE $where";
+
+        // Prepare the statement
+        $stmt = $this->connection->prepare($query);
+
+        // Execute the query
+        $stmt->execute();
 
         // Check if the query was successful
         if ($stmt->rowCount() > 0) {
