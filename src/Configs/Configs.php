@@ -14,6 +14,7 @@ class Configs
             'dbhost' => 'localhost',
             'dbusername' => 'your_database_name',
             'dbpassword' => 'your_database_password',
+            'read_limit' => 50
         ];
 
         if ($filter == "*") {

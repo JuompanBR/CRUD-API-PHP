@@ -36,16 +36,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         // If using a database, uncomment this part and integrate it with your class
-        // $db->add('users', [
-        //     'username' => $username,
-        //     'password' => $hashedPassword,
-        //     'email' => $email
-        // ]);
+        $db->add('users', [
+            'username' => $username,
+            'password' => $hashedPassword,
+            'email' => $email
+        ]);
 
         echo json_encode([
-            'status' => 'success',
-            'message' => "User created successfully: $username"
+            'status' => Messages::getMessage('success'),
+            'message' => Messages::getCode("success")
         ]);
+
+        exit;
 
     } catch (\Exception $e) {
 
