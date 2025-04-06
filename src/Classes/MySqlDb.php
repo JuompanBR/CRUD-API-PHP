@@ -4,6 +4,8 @@ namespace App\Classes;
 
 use App\Classes\DbTypeInterface;
 use App\Configs\Messages;
+use App\Configs\Configs;
+
 use PDO;
 use PDOException;
 
@@ -29,12 +31,14 @@ class MySqlDb implements DbTypeInterface
      * Constuctor for the Db class
      * @param string $dsn Data source name for te databse connection
      */
-    private function __construct(string $dsn_user="mysql:host=localhost;dbname=your_database_name;charset=utf8mb4")
+    private function __construct(Configs $configs)
     {
+        $dsn_local = 'mysql:host=' . $configs->getConfig('dbhost') . ';dbname=' . $configs->getConfig('dbusername') . ';dbpassword=' . $configs->getConfig('dbpassword') . ';charset=utf8mb4';
         try {
 
-            $this->connection = new PDO($dsn_user);
+            $this->connection = new PDO($dsn_local);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dsn = $dsn_local;
         } catch (PDOException $e) {
 
             echo "Connection failed: " . $e->getMessage();
@@ -49,7 +53,8 @@ class MySqlDb implements DbTypeInterface
     {
         if (is_null($this->instance)) {
 
-            $this->instance = new MySqlDb();
+            // Pattern: Dependency injection
+            $this->instance = new MySqlDb(new Configs());
         }
         return $this->instance;
     }
@@ -165,5 +170,29 @@ class MySqlDb implements DbTypeInterface
 
             return Messages::getMessage('error');
         }
+    }
+    /**
+     * Find an element in the database
+     * 
+     * @param string $table The table to get the element
+     * @param array $where The find selection criteria
+     * 
+     * @return array The resulting documents
+     */
+    public function find(string $table, array $where): array
+    {
+        // Prevent sql injection attacks by using prepared statements
+        $query = "SELECT * FROM $table WHERE " . implode(" AND ", array_map(fn($key) => "$key = ?", array_keys($where))) . " LIMIT 1";
+
+        // Prepare the statement
+        $stmt = $this->connection->prepare($query);
+
+        // inding the ellement here
+        $stmt->execute(array_values($where));
+
+        // Fetch only one row here
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 }

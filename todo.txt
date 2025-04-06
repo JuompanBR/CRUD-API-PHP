@@ -1,7 +1,7 @@
 set the database credentials in an env file
 load then in the Config class using a singleton ?
 create a db class as a singleton to connect to mysql database
-inplement the router class and the th routes
+inplement the router as a singleton class and the th routes
 implement the routes handlers
 
 how do we run ??

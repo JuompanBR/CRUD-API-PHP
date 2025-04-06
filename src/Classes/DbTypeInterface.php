@@ -1,12 +1,11 @@
 <?php
 namespace App\Classes;
 
+use App\Classes\DbInterface;
 /**
  * The interface for the different db types for e.g., MySQL, MongoDB, etc...
  */
-interface DbTypeInterface
+interface DbTypeInterface extends DbInterface
 {
-    public function get(string $table, int $limit): array;
-    public function add(string $table, array $data): string;
     public function getInstance();
 }
