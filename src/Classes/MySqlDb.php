@@ -35,11 +35,12 @@ class MySqlDb implements DbTypeInterface
     {
 
         $dsn_local = 'mysql:host=' . $configs->getConfig('dbhost') . ';dbname=' . $configs->getConfig('dbname') . ';charset=utf8mb4';
-
         try {
 
             $this->connection = new PDO($dsn_local, $configs->getConfig('dbusername'), $configs->getConfig('dbpassword'));
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            // Store the dsn in case of a g connection ok
             $this->dsn = $dsn_local;
         } catch (PDOException $e) {
 
