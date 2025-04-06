@@ -33,10 +33,12 @@ class MySqlDb implements DbTypeInterface
      */
     private function __construct(Configs $configs)
     {
-        $dsn_local = 'mysql:host=' . $configs->getConfig('dbhost') . ';dbname=' . $configs->getConfig('dbusername') . ';dbpassword=' . $configs->getConfig('dbpassword') . ';charset=utf8mb4';
+
+        $dsn_local = 'mysql:host=' . $configs->getConfig('dbhost') . ';dbname=' . $configs->getConfig('dbname') . ';charset=utf8mb4';
+
         try {
 
-            $this->connection = new PDO($dsn_local);
+            $this->connection = new PDO($dsn_local, $configs->getConfig('dbusername'), $configs->getConfig('dbpassword'));
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->dsn = $dsn_local;
         } catch (PDOException $e) {

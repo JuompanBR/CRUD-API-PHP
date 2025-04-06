@@ -12,6 +12,7 @@ class Configs
 
         $configs = [
             'dbhost' => 'localhost',
+            'dbname' => 'assignment_1',
             'dbusername' => 'root',
             'dbpassword' => '',
             'read_limit' => 50
