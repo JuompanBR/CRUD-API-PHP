@@ -7,5 +7,5 @@ use App\Classes\DbInterface;
  */
 interface DbTypeInterface extends DbInterface
 {
-    public function getInstance();
+    public static function getInstance();
 }

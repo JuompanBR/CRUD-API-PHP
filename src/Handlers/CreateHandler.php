@@ -8,7 +8,7 @@ use App\Classes\ClassFactory;
 use App\Configs\Messages;
 
 // Pattern: Factory Class
-// $db = ClassFactory::getClass('db');
+$db = ClassFactory::getClass('db');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // hash the password
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // If using a database, uncomment this part and integrate it with your class
+        // Add the user
         $db->add('users', [
             'username' => $username,
             'password' => $hashedPassword,

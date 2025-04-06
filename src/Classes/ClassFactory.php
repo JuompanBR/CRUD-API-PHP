@@ -20,9 +20,7 @@ class ClassFactory
             case 'db':
                 // Pattern: DI, strategy,   
                 return new Db(
-                    new MySqlDb(
-                        new Configs()
-                    )
+                    MySqlDb::getInstance()
                 );
             default:
                 return new stdClass();

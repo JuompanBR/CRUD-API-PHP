@@ -47,16 +47,16 @@ class MySqlDb implements DbTypeInterface
 
     /**
      * Get te instance of the Db class
-     * @return Db instance
+     * @return DbTypeInterface instance
      */
-    public function getInstance(): MySqlDb
+    public static function getInstance(): DbTypeInterface
     {
-        if (is_null($this->instance)) {
+        if (is_null(self::$instance)) {
 
             // Pattern: Dependency injection
-            $this->instance = new MySqlDb(new Configs());
+            self::$instance = new MySqlDb(new Configs());
         }
-        return $this->instance;
+        return self::$instance;
     }
 
     /**

@@ -12,8 +12,8 @@ class Configs
 
         $configs = [
             'dbhost' => 'localhost',
-            'dbusername' => 'your_database_name',
-            'dbpassword' => 'your_database_password',
+            'dbusername' => 'root',
+            'dbpassword' => '',
             'read_limit' => 50
         ];
 
