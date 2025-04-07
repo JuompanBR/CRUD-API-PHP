@@ -14,6 +14,11 @@ All configurations files for the database connection and response messages are d
 ## 3. How to run
 I'm still expecting to upgrade the project with docker and nginx, but for now make sure your have MySQL installed with PHP and run the SQL commands located in the **src/Sql** sub-directory first.
 
+### How to run migrations
+```
+composer dump-autoload
+```
+
 ## 4. Good to know
 
 In this project, I practised the Design Patterns skills I learned early while building the project. I use a layered architecture in this case and these design patterns but non-exhaustive:

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Configs;
 
 /**
@@ -6,23 +7,23 @@ namespace App\Configs;
  */
 class Configs
 {
-
-    public static function getConfig(string $filter='*'): array|string
+    public static function getConfig(string $filter = '*'): array|string
     {
 
         $configs = [
             'dbhost' => 'localhost',
-            'dbname' => 'assignment_1',
+            'dbname' => 'bill_maviance',
             'dbusername' => 'root',
             'dbpassword' => '',
-            'read_limit' => 50
+            'read_limit' => 50,
         ];
 
-        if ($filter == "*") {
+        if ($filter == '*') {
 
             return $configs;
         }
-        
+
         return $configs[$filter] ?? 'Unknown config key';
     }
 }
+

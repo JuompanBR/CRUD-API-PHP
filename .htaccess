@@ -1,0 +1,13 @@
+# Disable directory listing
+Options -Indexes
+
+# Disable following file types
+AddType application/x-httpd-php .php
+AddType application/x-httpd-php-source .phps
+
+# Enable rewrite engine and route requests to framework
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA] 
+
