@@ -12,7 +12,25 @@ All classes are defined in the **src/Classes** sub-directory.<br>
 All configurations files for the database connection and response messages are defined in the **src/Configs** sub-directory.
 
 ## 3. How to run
-I'm still expecting to upgrade the project with docker and nginx, but for now make sure your have MySQL installed with PHP and run the SQL commands located in the **src/Sql** sub-directory first.
+### 3.1 Necessary services and dependencies
+I'm still expecting to upgrade the project with docker and nginx, but for now make sure your have MySQL installed with PHP and run the SQL commands located in the **src/Sql** 
+sub-directory first.
+
+HAving installed, PHP, MYSQL, and composer
+> 1. **Generate autoload**<br>
+> compose init<br>
+> composer dump-autoload -o
+### 3.2 Running migrations
+> 1. **Create a new database** <br>
+> CREATE DATABASE assignment_1;
+>
+> 2. **Create the necessary table** <br>
+> CREATE TABLE users (
+>    id INT AUTO_INCREMENT PRIMARY KEY, 
+>    username VARCHAR(255) NOT NULL,
+>    password VARCHAR(255) NOT NULL,
+>    email VARCHAR(255) NOT NULL
+> );
 
 ## 4. Good to know
 
@@ -31,3 +49,11 @@ Dependency injection
 Decorator pattern
 
 Please feel free to get in touch with me in case of an idea @ boris.goummo@cm.maviance.com
+
+## 5. To do
+- Config docker instances for mysql
+- Dockerise the application use php-7X-fpm
+- Read about fly way
+
+## 6. To Learn
+- Learn about common advanced comparison operators

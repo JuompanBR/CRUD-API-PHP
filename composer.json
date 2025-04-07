@@ -1,7 +1,16 @@
 {
+    "name": "mavianceuser/crudbackendphp",
+    "description": "CRUD API in Vanilla PHP",
+    "type": "project",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
         }
-    }
+    },
+    "authors": [
+        {
+            "name": "Juompan Goummo Bill"
+        }
+    ],
+    "require": {}
 }
