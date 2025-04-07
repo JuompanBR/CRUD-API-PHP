@@ -18,7 +18,7 @@ class Db implements DbInterface
         $this->db = $db_obj->getInstance();
     }
 
-    // Adapter pattern
+    // Pattern: Decorator pattern
     /**
      * Get adapter for the database types' get method
      */
