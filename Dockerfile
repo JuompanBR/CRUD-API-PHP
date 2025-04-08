@@ -1,38 +1,23 @@
-# Use PHP 8.1 FPM as base image
-FROM php:8.1-fpm
+FROM php:8.2-cli
 
-# Set the working directory in the container
-WORKDIR /var/www/html
+# Install required system packages and PHP extensions
+RUN apt-get update && \
+    apt-get install -y unzip && \
+    docker-php-ext-install pdo pdo_mysql && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install required system dependencies
-RUN apt-get update && apt-get install -y \
-    zip \
-    unzip \
-    libpq-dev \
-    libonig-dev \
-    libxml2-dev \
-    libpng-dev \
-    libzip-dev \
-    && docker-php-ext-install pdo_mysql
+# Set the working directory
+WORKDIR /app
 
-# Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Copy the application code
+COPY . .
 
-# Copy project files
-COPY . /var/www/html
+# Install PHP dependencies
+RUN composer install --no-interaction --prefer-dist
 
-# Set correct permissions for project files
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Expose the correct port (matching the PHP server port)
+EXPOSE 8000
 
-# Switch to non-root user for better security
-USER www-data
-
-# Install PHP dependencies using Composer
-RUN composer install --no-dev --optimize-autoloader
-
-# Expose port for PHP-FPM
-EXPOSE 9000
-
-# Start PHP-FPM service
-CMD ["php-fpm"]
+# Start PHP's built-in development server
+CMD ["php", "-S", "0.0.0.0:8000"]
