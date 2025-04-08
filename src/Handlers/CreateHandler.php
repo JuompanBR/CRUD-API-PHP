@@ -7,6 +7,8 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use App\Classes\ClassFactory;
 use App\Configs\Messages;
 
+header("Content-Type: application/json;");
+
 // Pattern: Factory Class
 $db = ClassFactory::getClass('db');
 
@@ -44,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo json_encode([
             'status' => Messages::getMessage('success'),
-            'message' => Messages::getCode("success")
+            'code' => Messages::getCode("success")
         ]);
 
         exit;
@@ -58,4 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
         exit;
     }
+} else {
+
+    echo json_encode([
+        'status' => Messages::getMessage('not_supported'),
+        'code' => Messages::getCode('not_supported')
+    ]);
+    exit;
 }

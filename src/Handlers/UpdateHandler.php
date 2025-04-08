@@ -7,6 +7,8 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use App\Classes\ClassFactory;
 use App\Configs\Messages;
 
+header("Content-Type: application/json;");
+
 // Database instance
 $db = ClassFactory::getClass('db');
 
@@ -45,4 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         ]);
         exit;
     }
+} else {
+
+    echo json_encode([
+        'status' => Messages::getMessage('not_supported'),
+        'code' => Messages::getCode('not_supported')
+    ]);
+    exit;
 }

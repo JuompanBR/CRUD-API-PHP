@@ -14,6 +14,7 @@ class Messages
             'invalid_input' => 'Invalid input provided',
             'unauthorized' => 'Unauthorized access',
             'bad_format' => 'Bad format',
+            'not_supported' => 'Method is not supported'
         ];
 
         return $messages[$type] ?? 'Unknown message key';
@@ -29,6 +30,7 @@ class Messages
             'invalid_input' => 400,
             'unauthorized' => 401,
             'bad_format' => 400,
+            'not_supported' => 505
         ];
 
         return $codes[$type] ?? 500;
