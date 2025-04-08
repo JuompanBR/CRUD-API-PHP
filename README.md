@@ -51,9 +51,8 @@ Decorator pattern
 Please feel free to get in touch with me in case of an idea @ boris.goummo@cm.maviance.com
 
 ## 5. To do
-- Config docker instances for mysql
-- Dockerise the application use php-7X-fpm
-- Read about fly way
+- Create a front controller to handle all incoming requests
+- Use a migration tool e.g. Flyway to handle the migrations
 
 ## 6. To Learn
 - Learn about common advanced comparison operators
